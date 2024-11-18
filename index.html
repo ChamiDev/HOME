@@ -18,6 +18,7 @@
             align-items: center;
             background-color: black;
             position: relative;
+            height: 100vh;
         }
         video {
             width: 100%;
@@ -28,24 +29,15 @@
         #loader {
             position: absolute;
             color: white;
-            font-size: 24px;
-            text-align: center;
+            font-size: 48px;
             z-index: 10;
-        }
-        #loader-bar {
-            width: 0;
-            height: 5px;
-            background-color: green;
-            transition: width 0.1s;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-    <div id="loader">
-        <p>Cargando... <span id="loader-percentage">0%</span></p>
-        <div id="loader-bar"></div>
-    </div>
+    <div id="loader">0%</div>
     <video id="video" autoplay muted>
         <source src="assets/chami.mp4" type="video/mp4">
         Avisos.
@@ -59,18 +51,16 @@
         const video = document.getElementById('video');
         const audio = document.getElementById('audio');
         const loader = document.getElementById('loader');
-        const loaderPercentage = document.getElementById('loader-percentage');
-        const loaderBar = document.getElementById('loader-bar');
 
         // Función para simular el progreso de carga
         let loadProgress = 0;
         const loaderInterval = setInterval(() => {
             loadProgress += 1;
-            loaderPercentage.textContent = loadProgress + '%';
-            loaderBar.style.width = loadProgress + '%';
+            loader.textContent = loadProgress + '%'; // Actualizar el porcentaje de carga
 
             if (loadProgress === 100) {
                 clearInterval(loaderInterval); // Detener el progreso cuando llegue a 100%
+                loader.style.display = 'none'; // Ocultar el porcentaje al completar la carga
                 video.style.display = 'block';  // Mostrar el video después de la carga
                 audio.play(); // Reproducir el audio
                 video.play(); // Reproducir el video
